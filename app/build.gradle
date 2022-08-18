@@ -57,4 +57,7 @@ dependencies {
 
     // extra dependencies
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    //Load image from internet
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

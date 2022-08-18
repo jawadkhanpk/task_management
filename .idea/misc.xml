@@ -3,12 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable-mdpi/l.xml" value="0.1575" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable-xhdpi/k.xml" value="0.1575" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable-xxhdpi/draw.xml" value="0.1575" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable-xxhdpi/ic_pic.xml" value="0.1575" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable/add.xml" value="0.2075" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable/circle_gb.xml" value="0.2075" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable/go_bg.xml" value="0.156" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable/ic_pic.xml" value="0.2065" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.2" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_create_company.xml" value="0.1859375" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_create_hp.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_login.xml" value="0.1859375" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_main_dashboard.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_project_manager_dashboard.xml" value="0.1859375" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_team.xml" value="0.2" />
       </map>

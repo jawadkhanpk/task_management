@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.taskmanagement.model.RegisterCompany" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.CreateCompany">
+
+        <View
+            android:id="@+id/byke_view"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:background="@drawable/circle_gb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.044">
+
+        </View>
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/selected_image"
+            app:layout_constraintTop_toTopOf="@id/byke_view"
+            app:layout_constraintBottom_toBottomOf="@id/byke_view"
+            app:layout_constraintEnd_toEndOf="@id/byke_view"
+            app:layout_constraintStart_toStartOf="@+id/byke_view"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:scaleType="centerCrop"
+            app:roundPercent="50"
+            android:imgUrl="@{item.companyLogo}"
+            android:src="@drawable/ic_pic">
+
+        </androidx.constraintlayout.utils.widget.ImageFilterView>
+
+        <EditText
+            android:id="@+id/companyName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:hint="Company Name"
+            android:paddingLeft="10dp"
+            android:background="@drawable/go_bg"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:text="@{item.companyName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selected_image"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/companyEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:hint="Company Email"
+            android:paddingLeft="10dp"
+            android:background="@drawable/go_bg"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:text="@{item.companyEmail}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/companyName"
+            app:layout_constraintStart_toStartOf="@id/companyName"
+            app:layout_constraintTop_toBottomOf="@id/companyName"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/companyType"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:hint="Company Type"
+            android:paddingLeft="10dp"
+            android:background="@drawable/go_bg"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:text="@{item.companyType}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/companyEmail"
+            app:layout_constraintStart_toStartOf="@id/companyEmail"
+            app:layout_constraintTop_toBottomOf="@id/companyEmail"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/companyCountry"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:hint="Company Country"
+            android:paddingLeft="10dp"
+            android:background="@drawable/go_bg"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            android:text="@{item.companyCountry}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/companyType"
+            app:layout_constraintStart_toStartOf="@id/companyType"
+            app:layout_constraintTop_toBottomOf="@id/companyType"
+            app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/registerCompany"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:text="Register"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:background="@drawable/go_bg"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/companyCountry"
+            app:layout_constraintStart_toStartOf="@id/companyCountry"
+            app:layout_constraintTop_toBottomOf="@id/companyCountry"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
