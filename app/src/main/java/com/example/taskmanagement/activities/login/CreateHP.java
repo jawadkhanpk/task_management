@@ -26,6 +26,7 @@ import com.example.taskmanagement.R;
 import com.example.taskmanagement.activities.CreateCompany;
 import com.example.taskmanagement.activities.Dashboard;
 import com.example.taskmanagement.activities.MainDashboard;
+import com.example.taskmanagement.activities.ProjectManagerDashboard;
 import com.example.taskmanagement.databinding.ActivityCreateHpBinding;
 import com.example.taskmanagement.model.RegisterCompany;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,20 +45,26 @@ public class CreateHP extends AppCompatActivity {
 
     ActivityCreateHpBinding binding;
     Intent uri;
-    String name, email, designation,key,password;
+    String name, email, designation, key, password;
     Firebase_Auth_SDP obj;
     ProgressDialog dialog;
+    String companyName;
+    com.example.taskmanagement.model.CreateHP createHP;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_create_hp);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_hp);
 
         obj = Firebase_Auth_SDP.getInstance();
+        companyName = getIntent().getStringExtra("companyName");
 
-        dialog=new ProgressDialog(this);
+        createHP = new com.example.taskmanagement.model.CreateHP();
+        binding.setItem(createHP);
+
+        createHP.setCompanyName(companyName);
+
+        dialog = new ProgressDialog(this);
         binding.selectedImage.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
@@ -69,6 +76,7 @@ public class CreateHP extends AppCompatActivity {
             name = binding.name.getText().toString();
             email = binding.email.getText().toString();
             designation = binding.designation.getText().toString();
+            password = binding.password.getText().toString();
 
 
             if (uri == null) {
@@ -79,18 +87,15 @@ public class CreateHP extends AppCompatActivity {
                 binding.email.setError("Please Email");
             } else if (designation.isEmpty()) {
                 binding.designation.setError("Please Designation");
-            }
-            else if (password.isEmpty()) {
+            } else if (password.isEmpty()) {
                 binding.password.setError("Please Password");
-            }
-            else {
+            } else {
 
-                sendData(uri.getData(), name, email, designation, key,password);
+                sendData(uri.getData(), name, email, designation, key, password);
             }
 
         });
     }
-
 
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
@@ -100,11 +105,13 @@ public class CreateHP extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         uri = result.getData();
+
+                        binding.selectedImage.setImageURI(uri.getData());
                     }
                 }
             });
 
-    private void sendData(Uri uri, String name, String email, String designation, String key,String password) {
+    private void sendData(Uri uri, String name, String email, String designation, String key, String password) {
         dialog.show();
         dialog.setTitle("Upload Detail");
         StorageReference sRef = obj.getStorageReference().getReference("Company People").child(String.valueOf(System.currentTimeMillis()));
@@ -118,61 +125,30 @@ public class CreateHP extends AppCompatActivity {
                                                            @Override
                                                            public void onSuccess(Uri downloadUri) {
 
-                                                               com.example.taskmanagement.model.CreateHP model_class = new com.example.taskmanagement.model.CreateHP(finalKey,downloadUri.toString(), name, email, designation, password);
+                                                               com.example.taskmanagement.model.CreateHP model_class = new com.example.taskmanagement.model.CreateHP(finalKey, name, downloadUri.toString(), designation, email, password, companyName);
 
-//                                                               obj.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                                                                   @Override
-//                                                                   public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//                                                                      if (task.isSuccessful())
-//                                                                      {
-//                                                                          obj.getFirebaseDatabase().getReference().child(COMPANIES).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                                                              @Override
-//                                                                              public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                                                                  obj.getFirebaseDatabase().getReference().child(COMPANIES).child(COMPANY_NAME).child(companyName).child(USERS).setValue(model_class);
-//
-//                                                                                  new Handler().postDelayed(new Runnable() {
-//                                                                                      @Override
-//                                                                                      public void run() {
-//                                                                                          startActivity(new Intent(CreateCompany.this,MainDashboard.class));
-//                                                                                          finish();
-//                                                                                      }
-//                                                                                  },500);
-//                                                                              }
-//
-//                                                                              @Override
-//                                                                              public void onCancelled(@NonNull DatabaseError error) {
-//                                                                              }
-//                                                                          });
-//
-//                                                                      }
-//                                                                      else
-//                                                                      {
-//
-//                                                                      }
-//                                                                   }
-//
-//                                                               });
 
-//                                                               obj.getFirebaseDatabase().getReference().child(COMPANIES).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                                                   @Override
-//                                                                   public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                                                       obj.getFirebaseDatabase().getReference().child(COMPANIES).child(COMPANY_NAME).child(companyName).child(COMPANY_DATA).setValue(model_class);
-//
-//                                                                       new Handler().postDelayed(new Runnable() {
-//                                                                           @Override
-//                                                                           public void run() {
-//                                                                               startActivity(new Intent(CreateCompany.this, MainDashboard.class));
-//                                                                               finish();
-//                                                                           }
-//                                                                       },500);
-//                                                                   }
-//
-//                                                                   @Override
-//                                                                   public void onCancelled(@NonNull DatabaseError error) {
-//                                                                   }
-//                                                               });
+                                                               obj.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                                   @Override
+                                                                   public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                       if (task.isSuccessful()) {
+                                                                           obj.getFirebaseDatabase().getReference().child(COMPANIES).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                               @Override
+                                                                               public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                                                                   obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(USERS).child(finalKey).setValue(model_class);
+                                                                                   obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).child(finalKey).setValue(model_class);
+                                                                                   startActivity(new Intent(CreateHP.this, ProjectManagerDashboard.class));
+                                                                                   finish();
+                                                                               }
 
+                                                                               @Override
+                                                                               public void onCancelled(@NonNull DatabaseError error) {
+                                                                               }
+                                                                           });
+
+                                                                       }
+                                                                   }
+                                                               });
 
                                                            }
                                                        });

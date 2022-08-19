@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.taskmanagement">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,7 +16,22 @@
         android:theme="@style/Theme.TaskManagement"
         tools:targetApi="31">
         <activity
-            android:name=".CreateHP"
+            android:name=".activities.Splash"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.pmdashboard.PMDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".activities.hrdashboard.HRDashboard"
+            android:exported="false" />
+        <activity
+            android:name=".activities.GoogleLoginActivity"
             android:exported="false" />
         <activity
             android:name=".activities.AdminDashboard"
@@ -25,23 +42,26 @@
         <activity
             android:name=".activities.MainDashboard"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".activities.TeamActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ProjectManagerDashboard"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activities.Dashboard"
             android:exported="false" />
         <activity
             android:name=".activities.login.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.login.CreateHP"
             android:exported="true" />
     </application>
 

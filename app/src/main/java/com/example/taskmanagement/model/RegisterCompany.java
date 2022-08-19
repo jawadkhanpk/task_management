@@ -15,12 +15,22 @@ import com.squareup.picasso.Picasso;
  * 17/08/2022
  */
 public class RegisterCompany {
-    public RegisterCompany(String companyLogo, String companyName, String companyEmail, String companyType, String companyCountry) {
+    public String getLoginID() {
+        return loginID;
+    }
+
+    public void setLoginID(String loginID) {
+        this.loginID = loginID;
+    }
+
+    String loginID;
+    public RegisterCompany(String companyLogo, String companyName, String companyEmail, String companyType, String companyCountry,String loginID) {
         this.companyLogo = companyLogo;
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyType = companyType;
         this.companyCountry = companyCountry;
+        this.loginID=loginID;
     }
 
     public RegisterCompany() {

@@ -1,5 +1,6 @@
 package com.example.taskmanagement.activities;
 
+import static com.example.taskmanagement.Constant.ADMIN;
 import static com.example.taskmanagement.Constant.COMPANIES;
 import static com.example.taskmanagement.Constant.COMPANY_DATA;
 import static com.example.taskmanagement.Constant.COMPANY_NAME;
@@ -41,6 +42,7 @@ public class CreateCompany extends AppCompatActivity {
     String companyName, companyEmail, companyType, companyCountry;
     Firebase_Auth_SDP obj;
     ProgressDialog dialog;
+    String email, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,24 @@ public class CreateCompany extends AppCompatActivity {
 
         obj = Firebase_Auth_SDP.getInstance();
 
-        dialog=new ProgressDialog(this);
+
+        email = getIntent().getStringExtra("email");
+        id = getIntent().getStringExtra("id");
+        Log.i("mehmood", "onCreate: " + email);
+        Log.i("mehmood", "onCreate: " + id);
+
+        RegisterCompany registerCompany = new RegisterCompany();
+        binding.setItem(registerCompany);
+        registerCompany.setCompanyEmail(email);
+
+        dialog = new ProgressDialog(this);
         binding.selectedImage.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             someActivityResultLauncher.launch(intent);
 
         });
+
 
         binding.registerCompany.setOnClickListener(view -> {
             companyName = binding.companyName.getText().toString();
@@ -90,6 +103,7 @@ public class CreateCompany extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         uri = result.getData();
+                        binding.selectedImage.setImageURI(uri.getData());
                     }
                 }
             });
@@ -107,20 +121,18 @@ public class CreateCompany extends AppCompatActivity {
                                                            @Override
                                                            public void onSuccess(Uri downloadUri) {
 
-                                                               RegisterCompany model_class = new RegisterCompany(downloadUri.toString(), companyName, companyEmail, companyType, companyCountry);
+                                                               RegisterCompany model_class = new RegisterCompany(downloadUri.toString(), companyName, companyEmail, companyType, companyCountry, id);
 
                                                                obj.getFirebaseDatabase().getReference().child(COMPANIES).addListenerForSingleValueEvent(new ValueEventListener() {
                                                                    @Override
                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                       obj.getFirebaseDatabase().getReference().child(COMPANIES).child(COMPANY_NAME).child(companyName).child(COMPANY_DATA).setValue(model_class);
+                                                                       obj.getFirebaseDatabase().getReference().child(COMPANIES).child(ADMIN).child(id).setValue(model_class);
+                                                                       finishAffinity();
+                                                                       Intent intent = new Intent(CreateCompany.this, ProjectManagerDashboard.class);
+                                                                       startActivity(intent);
+                                                                       finish();
 
-                                                                       new Handler().postDelayed(new Runnable() {
-                                                                           @Override
-                                                                           public void run() {
-                                                                               startActivity(new Intent(CreateCompany.this,MainDashboard.class));
-                                                                               finish();
-                                                                           }
-                                                                       },500);
+
                                                                    }
 
                                                                    @Override

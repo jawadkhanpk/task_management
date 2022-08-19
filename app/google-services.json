@@ -44,6 +44,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "24724113902-6bspndqajpvourhami91rd43bt8s3l32.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.supportivehands.taskmanagement",
+            "certificate_hash": "d9948ffa916a0d1f7d30ad43a05ea842ba77dd08"
+          }
+        },
+        {
           "client_id": "24724113902-dd5c7v14b9q6ebhmv82r8b5sbvrv0nus.apps.googleusercontent.com",
           "client_type": 3
         }

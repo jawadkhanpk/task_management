@@ -1,29 +1,182 @@
 package com.example.taskmanagement.activities;
 
+import static com.example.taskmanagement.Constant.ADMIN;
+import static com.example.taskmanagement.Constant.COMPANIES;
+import static com.example.taskmanagement.Constant.USERS;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.taskmanagement.Firebase_Auth_SDP;
 import com.example.taskmanagement.R;
 import com.example.taskmanagement.activities.login.CreateHP;
-import com.example.taskmanagement.activities.login.LoginActivity;
+import com.example.taskmanagement.adapter.RegisterUserAdapter;
 import com.example.taskmanagement.databinding.ActivityProjectManagerDashboardBinding;
+import com.example.taskmanagement.interfacesPackage.UserDelete;
+import com.example.taskmanagement.model.RegisterCompany;
+import com.example.taskmanagement.model.RegisterUserModel;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
-public class ProjectManagerDashboard extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class ProjectManagerDashboard extends AppCompatActivity implements UserDelete {
 
     ActivityProjectManagerDashboardBinding binding;
+    Firebase_Auth_SDP obj;
+    GoogleSignInAccount acct;
+    String companyName;
+    ArrayList<com.example.taskmanagement.model.CreateHP > list;
+    RegisterUserAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_project_manager_dashboard);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_project_manager_dashboard);
 
-        binding.addClassBtn.setOnClickListener(view -> {
-            startActivity(new Intent(ProjectManagerDashboard.this, CreateHP.class));
-            finish();
+        obj = Firebase_Auth_SDP.getInstance();
+        acct = GoogleSignIn.getLastSignedInAccount(ProjectManagerDashboard.this);
+
+        list = new ArrayList<>();
+        adapter = new RegisterUserAdapter(this, list,this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        binding.recycleView.setLayoutManager(linearLayoutManager);
+
+        obj.getFirebaseDatabase().getReference().child(COMPANIES).child(ADMIN).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    RegisterCompany registerCompany = dataSnapshot.getValue(RegisterCompany.class);
+
+                    if (registerCompany.getLoginID().equals(acct.getId())) {
+                        companyName = registerCompany.getCompanyName();
+                        Log.i("mehmood", "onDataChange: " + companyName);
+
+                        if (companyName.equals(null)) {
+                            binding.progressBar.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.progressBar.setVisibility(View.INVISIBLE);
+                            obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+//                                        for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()) {
+                                            com.example.taskmanagement.model.CreateHP registerCompany = dataSnapshot.getValue(com.example.taskmanagement.model.CreateHP.class);
+
+                                           if (companyName.equals(registerCompany.getCompanyName())) {
+                                               list.add(registerCompany);
+                                               Log.i("mehmood", "Adapter: " + registerCompany.getImageUrl());
+                                               Log.i("mehmood", "Adapter: " + registerCompany.getDesignation());
+                                           }
+                                       // }
+                                    }
+                                    binding.recycleView.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        binding.projectManager.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), CreateHP.class);
+            intent.putExtra("companyName", companyName);
+            startActivity(intent);
+
 
         });
+    }
+
+    @Override
+    public void deleteUser(com.example.taskmanagement.model.CreateHP model, View view,int pos) {
+        showPopMenu(model, view,pos);
+        Toast.makeText(this, ""+pos, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showPopMenu(com.example.taskmanagement.model.CreateHP model, View view,int pos) {
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        popupMenu.inflate(R.menu.delete_menu);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.delete) {
+                    AlertDialog dialog = new AlertDialog.Builder(ProjectManagerDashboard.this, R.style.AlertDialogStyle)
+                            .setTitle("Delete")
+                            .setCancelable(false)
+                            .setMessage("Do you really want to delete this class?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    try {
+                                        String key = model.getKey();
+                                        Log.i("mehmood", "onClick: "+key);
+                                        obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).child(key).
+                                                removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                        adapter.notifyDataSetChanged();
+
+
+                                                    }
+                                                });
+                                    } catch (Exception e) {
+
+                                    }
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null)
+                            .create();
+                    dialog.show();
+                }
+
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 }

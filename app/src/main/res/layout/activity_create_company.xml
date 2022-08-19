@@ -62,13 +62,14 @@
             app:layout_constraintTop_toBottomOf="@id/selected_image"
             app:layout_constraintVertical_bias="0.0" />
 
-        <EditText
+        <TextView
             android:id="@+id/companyEmail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_10sdp"
             android:hint="Company Email"
             android:paddingLeft="10dp"
+            android:gravity="start|center"
             android:background="@drawable/go_bg"
             android:inputType="textPersonName"
             android:textColor="@color/black"

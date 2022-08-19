@@ -1,5 +1,6 @@
 package com.example.taskmanagement.model;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -30,13 +31,24 @@ public class CreateHP {
 
     String password;
 
-    public CreateHP(String key, String name, String imageUrl, String designation, String email,String password) {
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    String companyName;
+
+    public CreateHP(String key, String name, String imageUrl, String designation, String email,String password,String companyName) {
         this.key = key;
         this.name = name;
         this.imageUrl = imageUrl;
         this.designation = designation;
         this.email = email;
         this.password=password;
+        this.companyName=companyName;
     }
 
     public CreateHP() {
@@ -79,10 +91,11 @@ public class CreateHP {
     String designation;
     String email;
 
-    @BindingAdapter("android:imgUrl")
-    public static void loadImage(ImageView imageView, String companyLogo)
+    @BindingAdapter("android:imgUrlHP")
+    public static void loadImageHP(ImageView imageView, String companyLogo)
     {
         Picasso.get().load(companyLogo).into(imageView);
+
 
     }
 }
