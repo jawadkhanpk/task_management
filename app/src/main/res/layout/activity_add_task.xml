@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.taskmanagement.model.AddTaskModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.AddTaskActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/title"
+                android:hint="Title"
+                android:text="@{item.title}"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+            <EditText
+                android:id="@+id/description"
+                android:hint="Description"
+                android:text="@{item.description}"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </EditText>
+            <TextView
+                android:id="@+id/from"
+                android:hint="From"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:text="@{item.from}"
+                android:gravity="start|center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp">
+
+            </TextView>
+            <TextView
+                android:id="@+id/to"
+                android:hint="To"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:text="@{item.to}"
+                android:gravity="start|center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp">
+
+            </TextView>
+
+            <Spinner
+                android:id="@+id/assignTo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp">
+
+            </Spinner>
+
+
+            <TextView
+                android:id="@+id/done"
+                android:text="Done"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/go_bg"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_35sdp">
+
+            </TextView>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

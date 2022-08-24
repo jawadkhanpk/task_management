@@ -12,6 +12,7 @@
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable/go_bg.xml" value="0.156" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable/ic_menu_dot.xml" value="0.2075" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/drawable/ic_pic.xml" value="0.2065" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_add_task.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_admin_dashboard.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_create_company.xml" value="0.1859375" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_create_hp.xml" value="0.2" />
@@ -19,14 +20,21 @@
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_googele_login.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_google_login.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_hrdashboard.xml" value="0.2" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_list_of_member.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_login.xml" value="0.1859375" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_main_dashboard.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_pmdashboard.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_project_manager_dashboard.xml" value="0.1859375" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_task_show.xml" value="0.1859375" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/activity_team.xml" value="0.2" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/fragment_completed.xml" value="0.2" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/fragment_in_progress.xml" value="0.1859375" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/register_user_list.xml" value="0.2" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/register_user_list2.xml" value="0.33" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/layout/show_team_list.xml" value="0.2" />
         <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/menu/delete_menu.xml" value="0.2" />
+        <entry key="..\:/Android/AndroidStudioProjects/TaskManagement/app/src/main/res/menu/team_item.xml" value="0.2" />
       </map>
     </option>
   </component>

@@ -4,6 +4,7 @@ import static com.example.taskmanagement.Constant.COMPANIES;
 import static com.example.taskmanagement.Constant.COMPANY_NAME;
 import static com.example.taskmanagement.Constant.SUPPORTIVE_HAND;
 
+import static com.example.taskmanagement.Constant.TEAMS;
 import static com.example.taskmanagement.Constant.USERS;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,7 @@ public class TeamActivity extends AppCompatActivity {
     ActivityTeamBinding binding;
     String teamName, status;
     Firebase_Auth_SDP obj;
-    String companyName,designation,name,email;
+    String companyName,designation,name,email,creatorName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,10 @@ public class TeamActivity extends AppCompatActivity {
 //        designation=getIntent().getStringExtra("designation");
 //        name=getIntent().getStringExtra("name");
         email=getIntent().getStringExtra("email");
+        creatorName=getIntent().getStringExtra("name");
+        designation=getIntent().getStringExtra("designation");
+
+
         Log.i("mehmood", "onCreate............................: "+email);
         binding.createTeam.setOnClickListener(view -> {
             teamName = binding.teamName.getText().toString();
@@ -62,24 +67,24 @@ public class TeamActivity extends AppCompatActivity {
             } else {
 
 
-                sendData(teamName, status,email);
+                sendData(teamName, status,email,creatorName,companyName,designation);
 
             }
         });
     }
 
-    private void sendData(String teamName, String status,String email) {
+    private void sendData(String teamName, String status,String email,String name,String creatorCompanyName ,String des) {
         ProgressDialog dialog = new ProgressDialog(TeamActivity.this);
         dialog.setTitle("Wait....");
         dialog.setMessage("Detail Save in Database");
         dialog.show();
 
-        CreateTeam team = new CreateTeam(teamName, status,"","",email);
+        CreateTeam team = new CreateTeam(teamName, status,des,name,email,creatorCompanyName);
         obj.getFirebaseDatabase().getReference().child(COMPANIES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(teamName).setValue(team);
+                obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(TEAMS).child(teamName).setValue(team);
 
                 Intent intent = new Intent(TeamActivity.this, PMDashboard.class);
                 startActivity(intent);

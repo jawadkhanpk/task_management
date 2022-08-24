@@ -27,13 +27,14 @@ public class Splash extends AppCompatActivity {
 
     Firebase_Auth_SDP obj;
 
-    String designation,email;
+    String designation,email,loginEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         obj = Firebase_Auth_SDP.getInstance();
 
+        loginEmail=obj.getAuth().getCurrentUser().getEmail();
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(Splash.this);
 //
 
@@ -53,12 +54,18 @@ public class Splash extends AppCompatActivity {
                             designation=user.getDesignation();
                             email=user.getEmail();
 
-                            if (designation.equals("HR")) {
+                            if (loginEmail.equals(email) && designation.equals("HR")) {
                                 Log.i("mehmood", "HR: " + designation);
+                                Intent intent=new Intent(Splash.this, HRDashboard.class);
+                                startActivity(intent);
+                                finish();
                             }
-                            else if (designation.equals("Project Manager"))
+                            else if (loginEmail.equals(email) && designation.equals("Project Manager"))
                             {
                                 Log.i("mehmood", "Project Manager: " + designation);
+                                Intent intent=new Intent(Splash.this, PMDashboard.class);
+                                startActivity(intent);
+                                finish();
 
                             }
                         }
@@ -79,13 +86,13 @@ public class Splash extends AppCompatActivity {
                                 if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser().getEmail().equals(email))
                                 {
                                     Log.i("mehmood", "run: "+designation);
-                                    if (designation.equals("HR"))
+                                    if (loginEmail.equals(email) && designation.equals("HR"))
                                     {
                                         Intent intent=new Intent(Splash.this, HRDashboard.class);
                                         startActivity(intent);
                                         finish();
                                     }
-                                    else if (designation.equals("Project Manager"))
+                                    else if (loginEmail.equals(email) && designation.equals("Project Manager"))
                                     {
                                         Intent intent=new Intent(Splash.this, PMDashboard.class);
                                         startActivity(intent);
@@ -137,7 +144,7 @@ public class Splash extends AppCompatActivity {
                             }
 
                         }
-                    }, 500);
+                    }, 300);
                 }
 
             }
