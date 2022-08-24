@@ -49,7 +49,7 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
     Firebase_Auth_SDP obj;
     GoogleSignInAccount acct;
     String companyName;
-    ArrayList<com.example.taskmanagement.model.CreateHP > list;
+    ArrayList<com.example.taskmanagement.model.CreateHP> list;
     RegisterUserAdapter adapter;
 
 
@@ -63,10 +63,11 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
         acct = GoogleSignIn.getLastSignedInAccount(ProjectManagerDashboard.this);
 
         list = new ArrayList<>();
-        adapter = new RegisterUserAdapter(this, list,this);
+        adapter = new RegisterUserAdapter(this, list, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.recycleView.setLayoutManager(linearLayoutManager);
+
 
         obj.getFirebaseDatabase().getReference().child(COMPANIES).child(ADMIN).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -83,23 +84,28 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
                             binding.progressBar.setVisibility(View.VISIBLE);
                         } else {
                             binding.progressBar.setVisibility(View.INVISIBLE);
-                            obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).addListenerForSingleValueEvent(new ValueEventListener() {
+                            obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    list.clear();
                                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
 //                                        for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()) {
-                                            com.example.taskmanagement.model.CreateHP registerCompany = dataSnapshot.getValue(com.example.taskmanagement.model.CreateHP.class);
+                                        com.example.taskmanagement.model.CreateHP registerCompany = dataSnapshot.getValue(com.example.taskmanagement.model.CreateHP.class);
 
-                                           if (companyName.equals(registerCompany.getCompanyName())) {
-                                               list.add(registerCompany);
-                                               Log.i("mehmood", "Adapter: " + registerCompany.getImageUrl());
-                                               Log.i("mehmood", "Adapter: " + registerCompany.getDesignation());
-                                           }
-                                       // }
+                                        if (companyName.equals(registerCompany.getCompanyName())) {
+                                            list.add(registerCompany);
+                                            Log.i("mehmood", "Adapter: " + registerCompany.getImageUrl());
+                                            Log.i("mehmood", "Adapter: " + registerCompany.getDesignation());
+
+                                            binding.recycleView.setAdapter(adapter);
+                                            adapter.notifyDataSetChanged();
+
+                                        }
+                                        // }
                                     }
-                                    binding.recycleView.setAdapter(adapter);
-                                    adapter.notifyDataSetChanged();
+
+
                                 }
 
                                 @Override
@@ -107,8 +113,11 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
 
                                 }
                             });
+//                            binding.recycleView.setAdapter(adapter);  ....Not Working
+//                            adapter.notifyDataSetChanged();
                         }
                     }
+
 
                 }
             }
@@ -119,6 +128,8 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
             }
         });
 
+//        binding.recycleView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
 
 
         binding.projectManager.setOnClickListener(view -> {
@@ -131,12 +142,13 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
     }
 
     @Override
-    public void deleteUser(com.example.taskmanagement.model.CreateHP model, View view,int pos) {
-        showPopMenu(model, view,pos);
-        Toast.makeText(this, ""+pos, Toast.LENGTH_SHORT).show();
+    public void deleteUser(com.example.taskmanagement.model.CreateHP model, View view, int pos) {
+        showPopMenu(model, view, pos);
+        Toast.makeText(this, "" + pos, Toast.LENGTH_SHORT).show();
     }
 
-    private void showPopMenu(com.example.taskmanagement.model.CreateHP model, View view,int pos) {
+    private void showPopMenu(com.example.taskmanagement.model.CreateHP model, View view, int pos) {
+        String key = model.getKey();
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
         popupMenu.inflate(R.menu.delete_menu);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -152,14 +164,16 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     try {
-                                        String key = model.getKey();
-                                        Log.i("mehmood", "onClick: "+key);
+
+                                        Log.i("mehmood", "onClick: " + key);
                                         obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).child(key).
                                                 removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
 
-                                                        adapter.notifyDataSetChanged();
+
+                                                            adapter.notifyDataSetChanged();
+
 
 
                                                     }

@@ -132,7 +132,7 @@ public class CreateHP extends AppCompatActivity {
                                                                    @Override
                                                                    public void onComplete(@NonNull Task<AuthResult> task) {
                                                                        if (task.isSuccessful()) {
-                                                                           obj.getFirebaseDatabase().getReference().child(COMPANIES).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                           obj.getFirebaseDatabase().getReference().child(COMPANIES).addValueEventListener(new ValueEventListener() {
                                                                                @Override
                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                                                                                   obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(USERS).child(finalKey).setValue(model_class);
@@ -163,5 +163,10 @@ public class CreateHP extends AppCompatActivity {
                 dialog.setCancelable(false);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

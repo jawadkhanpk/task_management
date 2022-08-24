@@ -12,4 +12,7 @@ public class Constant {
     public static final String COMPANIES="Companies";
     public static final String COMPANY_DATA="Company Data";
     public static final String ADMIN="Admin";
+    public static final String TEAMS="Teams";
+    public static final String MEMBER="Member";
+    public static final String WORK="Worker";
 }

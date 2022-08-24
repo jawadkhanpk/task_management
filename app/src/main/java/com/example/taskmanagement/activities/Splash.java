@@ -27,127 +27,139 @@ public class Splash extends AppCompatActivity {
 
     Firebase_Auth_SDP obj;
 
-    String designation,email;
+    String designation, email, loginEmail;
+    GoogleSignInAccount acct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         obj = Firebase_Auth_SDP.getInstance();
 
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(Splash.this);
-//
+//        if (loginEmail==null)
+//        {
+//            Intent intent=new Intent(Splash.this, MainDashboard.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//        else {
+        try {
 
 
+            loginEmail = obj.getAuth().getCurrentUser().getEmail();
 
-        obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        } catch (Exception e) {
 
-                if (snapshot.exists()) {
+        }
+        if (loginEmail == null) {
+            Intent intent = new Intent(Splash.this, MainDashboard.class);
+            startActivity(intent);
+            finish();
+            Toast.makeText(this, "" + loginEmail, Toast.LENGTH_SHORT).show();
 
-                    Log.i("mehmood", "Exist: ");
-                    for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+        } else {
 
-                        com.example.taskmanagement.model.CreateHP user = dataSnapshot2.getValue(com.example.taskmanagement.model.CreateHP.class);
-                        {
-                            designation=user.getDesignation();
-                            email=user.getEmail();
 
-                            if (designation.equals("HR")) {
-                                Log.i("mehmood", "HR: " + designation);
-                            }
-                            else if (designation.equals("Project Manager"))
+            acct = GoogleSignIn.getLastSignedInAccount(Splash.this);
+            obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if (snapshot.exists()) {
+
+                        Log.i("mehmood", "Exist: ");
+                        for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+
+                            com.example.taskmanagement.model.CreateHP user = dataSnapshot2.getValue(com.example.taskmanagement.model.CreateHP.class);
                             {
-                                Log.i("mehmood", "Project Manager: " + designation);
+                                designation = user.getDesignation();
+                                email = user.getEmail();
 
+                                if (loginEmail.equals(email) && designation.equals("HR")) {
+                                    Log.i("mehmood", "HR: " + designation);
+                                    Intent intent = new Intent(Splash.this, HRDashboard.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (loginEmail.equals(email) && designation.equals("Project Manager")) {
+                                    Log.i("mehmood", "Project Manager: " + designation);
+                                    Intent intent = new Intent(Splash.this, PMDashboard.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
                             }
+
                         }
 
-                    }
+                        if (acct != null) {
+                            Intent intent = new Intent(Splash.this, ProjectManagerDashboard.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (acct == null) {
 
-                    if (acct!=null)
-                    {
-                        Intent intent=new Intent(Splash.this, ProjectManagerDashboard.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else if (acct==null)
-                    {
-
-                            if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser()!=null)
-                            {
-                                if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser().getEmail().equals(email))
-                                {
-                                    Log.i("mehmood", "run: "+designation);
-                                    if (designation.equals("HR"))
-                                    {
-                                        Intent intent=new Intent(Splash.this, HRDashboard.class);
+                            if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser() != null) {
+                                if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser().getEmail().equals(email)) {
+                                    Log.i("mehmood", "run: " + designation);
+                                    if (loginEmail.equals(email) && designation.equals("HR")) {
+                                        Intent intent = new Intent(Splash.this, HRDashboard.class);
                                         startActivity(intent);
                                         finish();
-                                    }
-                                    else if (designation.equals("Project Manager"))
-                                    {
-                                        Intent intent=new Intent(Splash.this, PMDashboard.class);
+                                    } else if (loginEmail.equals(email) && designation.equals("Project Manager")) {
+                                        Intent intent = new Intent(Splash.this, PMDashboard.class);
                                         startActivity(intent);
                                         finish();
                                     }
                                 }
-                            }
-                            else
-                            {
-                                Intent intent=new Intent(Splash.this, MainDashboard.class);
+                            } else {
+                                Intent intent = new Intent(Splash.this, MainDashboard.class);
                                 startActivity(intent);
                                 finish();
                             }
 
-                    }
-                } else {
-                    Log.i("mehmood", "Not: ");
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
+                        }
+                    } else {
+                        Log.i("mehmood", "Not: ");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
 
-                            if (acct!=null)
-                            {
-                                Intent intent=new Intent(Splash.this, ProjectManagerDashboard.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else if (acct==null)
-                            {
-                                if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser()!=null)
-                                {
-                                    if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser().getEmail().equals(email))
-                                    {
-                                        Log.i("mehmood", "run: "+designation);
+                                if (acct != null) {
+                                    Intent intent = new Intent(Splash.this, ProjectManagerDashboard.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else if (acct == null) {
+                                    if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser() != null) {
+                                        if (Firebase_Auth_SDP.getInstance().getAuth().getCurrentUser().getEmail().equals(email)) {
+                                            Log.i("mehmood", "run: " + designation);
+                                        }
+                                    } else {
+                                        Intent intent = new Intent(Splash.this, MainDashboard.class);
+                                        startActivity(intent);
+                                        finish();
                                     }
-                                }
-                                else
-                                {
-                                    Intent intent=new Intent(Splash.this, MainDashboard.class);
+                                } else {
+                                    Intent intent = new Intent(Splash.this, MainDashboard.class);
                                     startActivity(intent);
                                     finish();
                                 }
-                            }
-                            else
-                            {
-                                Intent intent=new Intent(Splash.this, MainDashboard.class);
-                                startActivity(intent);
-                                finish();
-                            }
 
-                        }
-                    }, 500);
+                            }
+                        }, 300);
+                    }
+
+
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    Log.i("mehmood", "onCancelled: " + error.getMessage());
+                }
+            });
+        }
+        //  }
+//
 
-                Log.i("mehmood", "onCancelled: " + error.getMessage());
-            }
-        });
 
     }
 }
