@@ -75,13 +75,15 @@ public class Splash extends AppCompatActivity {
                                 designation = user.getDesignation();
                                 email = user.getEmail();
 
+                                Log.i("rafaqat", "onDataChange....Email: "+email);
+                                Log.i("rafaqat", "onDataChange....Des: "+designation);
+                                Log.i("rafaqat", "onDataChange....Login: "+loginEmail);
                                 if (loginEmail.equals(email) && designation.equals("HR")) {
                                     Log.i("mehmood", "HR: " + designation);
                                     Intent intent = new Intent(Splash.this, HRDashboard.class);
                                     startActivity(intent);
                                     finish();
                                 } else if (loginEmail.equals(email) && designation.equals("Project Manager")) {
-                                    Log.i("mehmood", "Project Manager: " + designation);
                                     Intent intent = new Intent(Splash.this, PMDashboard.class);
                                     startActivity(intent);
                                     finish();
