@@ -15,10 +15,13 @@ import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.taskmanagement.Firebase_Auth_SDP;
@@ -63,6 +66,7 @@ public class CreateHP extends AppCompatActivity {
         binding.setItem(createHP);
 
         createHP.setCompanyName(companyName);
+
 
         dialog = new ProgressDialog(this);
         binding.selectedImage.setOnClickListener(view -> {
@@ -125,7 +129,7 @@ public class CreateHP extends AppCompatActivity {
                                                            @Override
                                                            public void onSuccess(Uri downloadUri) {
 
-                                                               com.example.taskmanagement.model.CreateHP model_class = new com.example.taskmanagement.model.CreateHP(finalKey, name, downloadUri.toString(), designation, email, password, companyName);
+                                                               com.example.taskmanagement.model.CreateHP model_class = new com.example.taskmanagement.model.CreateHP(finalKey, name, downloadUri.toString(), designation, email, password, companyName, "");
 
 
                                                                obj.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -139,6 +143,8 @@ public class CreateHP extends AppCompatActivity {
                                                                                    obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).child(finalKey).setValue(model_class);
                                                                                    startActivity(new Intent(CreateHP.this, ProjectManagerDashboard.class));
                                                                                    finish();
+                                                                                   Log.i("rafaqat", "Current User In CreateHP: "+obj.getAuth().getCurrentUser().getEmail());
+
                                                                                }
 
                                                                                @Override

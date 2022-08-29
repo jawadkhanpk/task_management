@@ -49,7 +49,7 @@
                 app:layout_constraintStart_toStartOf="@+id/byke_view"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:imgUrlHP="@{item.profile}"
+                android:imgUrlHP="@{item.imageUrl}"
                 android:scaleType="centerCrop"
                 app:roundPercent="50"
                 android:src="@drawable/ic_pic">
@@ -79,7 +79,7 @@
 
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@{item.role}"
+                android:text="@{item.designation}"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textColorHint="@color/black"

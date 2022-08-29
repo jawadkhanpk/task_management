@@ -16,6 +16,9 @@
         android:theme="@style/Theme.TaskManagement"
         tools:targetApi="31">
         <activity
+            android:name=".NormalUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AddEmployActivity"
             android:exported="false" />
         <activity

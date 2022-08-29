@@ -41,7 +41,7 @@ public class CreateHP {
 
     String companyName;
 
-    public CreateHP(String key, String name, String imageUrl, String designation, String email,String password,String companyName) {
+    public CreateHP(String key, String name, String imageUrl, String designation, String email,String password,String companyName,String employCreatedBy) {
         this.key = key;
         this.name = name;
         this.imageUrl = imageUrl;
@@ -49,6 +49,7 @@ public class CreateHP {
         this.email = email;
         this.password=password;
         this.companyName=companyName;
+        this.employCreatedBy=employCreatedBy;
     }
 
     public CreateHP() {
@@ -90,6 +91,16 @@ public class CreateHP {
     String imageUrl;
     String designation;
     String email;
+
+    public String getEmployCreatedBy() {
+        return employCreatedBy;
+    }
+
+    public void setEmployCreatedBy(String employCreatedBy) {
+        this.employCreatedBy = employCreatedBy;
+    }
+
+    String employCreatedBy;
 
     @BindingAdapter("android:imgUrlHP")
     public static void loadImageHP(ImageView imageView, String companyLogo)

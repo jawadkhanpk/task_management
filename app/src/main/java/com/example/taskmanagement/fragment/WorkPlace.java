@@ -5,6 +5,8 @@ import static com.example.taskmanagement.Constant.TEAMS;
 import static com.example.taskmanagement.Constant.USERS;
 import static com.example.taskmanagement.Constant.WORK;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -113,6 +115,11 @@ public class WorkPlace extends Fragment {
             }
         });
 
+//        SharedPreferences sharedPreferences=this.getContext().getSharedPreferences("db", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor=sharedPreferences.edit();
+//        editor.putString("k","HR");
+//        editor.apply();
+//        editor.commit();
 
     }
 

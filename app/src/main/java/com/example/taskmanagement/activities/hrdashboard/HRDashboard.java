@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.taskmanagement.R;
@@ -27,6 +29,12 @@ public class HRDashboard extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         adapter = new PageAdapter2(manager, getLifecycle());
         binding.viewPager.setAdapter(adapter);
+
+        SharedPreferences sharedPreferences=getSharedPreferences("db", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("k","HR");
+        editor.apply();
+        editor.commit();
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("WorkPlace"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Employ"));

@@ -78,7 +78,7 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
 
                     if (registerCompany.getLoginID().equals(acct.getId())) {
                         companyName = registerCompany.getCompanyName();
-                        Log.i("mehmood", "onDataChange: " + companyName);
+
 
                         if (companyName.equals(null)) {
                             binding.progressBar.setVisibility(View.VISIBLE);
@@ -95,8 +95,8 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
 
                                         if (companyName.equals(registerCompany.getCompanyName())) {
                                             list.add(registerCompany);
-                                            Log.i("mehmood", "Adapter: " + registerCompany.getImageUrl());
-                                            Log.i("mehmood", "Adapter: " + registerCompany.getDesignation());
+//                                            Log.i("mehmood", "Adapter: " + registerCompany.getImageUrl());
+//                                            Log.i("mehmood", "Adapter: " + registerCompany.getDesignation());
 
                                             binding.recycleView.setAdapter(adapter);
                                             adapter.notifyDataSetChanged();
@@ -131,6 +131,8 @@ public class ProjectManagerDashboard extends AppCompatActivity implements UserDe
 //        binding.recycleView.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();
 
+
+//        Log.i("rafaqat", "Current User In ProjectManagerDashboard: "+obj.getAuth().getCurrentUser().getEmail());
 
         binding.projectManager.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), CreateHP.class);

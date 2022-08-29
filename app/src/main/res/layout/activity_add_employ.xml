@@ -11,8 +11,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
         android:id="@+id/lay_container"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <View
@@ -30,33 +30,34 @@
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/selected_image"
-            app:layout_constraintTop_toTopOf="@id/byke_view"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:imgUrlHP="@{item.imageUrl}"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_pic"
             app:layout_constraintBottom_toBottomOf="@id/byke_view"
             app:layout_constraintEnd_toEndOf="@id/byke_view"
             app:layout_constraintStart_toStartOf="@+id/byke_view"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_120sdp"
-            android:scaleType="centerCrop"
-            app:roundPercent="50"
-            android:imgUrlHP="@{item.profile}"
-            android:src="@drawable/ic_pic">
+            app:layout_constraintTop_toTopOf="@id/byke_view"
+            app:roundPercent="50">
 
         </androidx.constraintlayout.utils.widget.ImageFilterView>
+
 
         <TextView
             android:id="@+id/companyName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:hint="Company Name"
-            android:paddingLeft="10dp"
-            android:gravity="start|center"
             android:background="@drawable/go_bg"
+            android:gravity="start|center"
+            android:hint="Company Name"
             android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:text="@{item.companyName}"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="20sp"
-            android:text="@{item.companyName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,15 +69,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:hint="Name"
-            android:paddingLeft="10dp"
-            android:gravity="start|center"
             android:background="@drawable/go_bg"
+            android:gravity="start|center"
+            android:hint="Name"
             android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:text="@{item.name}"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="20sp"
-            android:text="@{item.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,14 +89,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:hint="Role"
-            android:paddingLeft="10dp"
             android:background="@drawable/go_bg"
+            android:hint="Role"
             android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:text="@{item.designation}"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="20sp"
-            android:text="@{item.role}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -107,14 +108,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:hint="Email"
-            android:paddingLeft="10dp"
             android:background="@drawable/go_bg"
+            android:hint="Email"
             android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:text="@{item.email}"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="20sp"
-            android:text="@{item.email}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/name"
             app:layout_constraintStart_toStartOf="@id/role"
@@ -126,48 +127,48 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:hint="Password"
-            android:paddingLeft="10dp"
             android:background="@drawable/go_bg"
+            android:hint="Password"
             android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:text="@{item.password}"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="20sp"
-            android:text="@{item.password}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/email"
             app:layout_constraintStart_toStartOf="@id/email"
             app:layout_constraintTop_toBottomOf="@id/email"
             app:layout_constraintVertical_bias="0.0" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/confirmPassword"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/_45sdp"-->
-<!--            android:layout_margin="@dimen/_10sdp"-->
-<!--            android:hint="Confirm Password"-->
-<!--            android:paddingLeft="10dp"-->
-<!--            android:background="@drawable/go_bg"-->
-<!--            android:inputType="textPersonName"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textColorHint="@color/black"-->
-<!--            android:textSize="20sp"-->
-<!--            android:text="@{item.password}"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/password"-->
-<!--            app:layout_constraintStart_toStartOf="@id/password"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/password"-->
-<!--            app:layout_constraintVertical_bias="0.0" />-->
+        <!--        <EditText-->
+        <!--            android:id="@+id/confirmPassword"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/_45sdp"-->
+        <!--            android:layout_margin="@dimen/_10sdp"-->
+        <!--            android:hint="Confirm Password"-->
+        <!--            android:paddingLeft="10dp"-->
+        <!--            android:background="@drawable/go_bg"-->
+        <!--            android:inputType="textPersonName"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textColorHint="@color/black"-->
+        <!--            android:textSize="20sp"-->
+        <!--            android:text="@{item.password}"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="@id/password"-->
+        <!--            app:layout_constraintStart_toStartOf="@id/password"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/password"-->
+        <!--            app:layout_constraintVertical_bias="0.0" />-->
         <TextView
             android:id="@+id/register"
             android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:text="Register"
-            android:paddingLeft="10dp"
-            android:gravity="center"
             android:background="@drawable/go_bg"
+            android:gravity="center"
             android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:text="Register"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="20sp"

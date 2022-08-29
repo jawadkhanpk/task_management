@@ -43,7 +43,7 @@ public class AddEmployActivity extends AppCompatActivity {
 
     ActivityAddEmployBinding binding;
     Intent uri;
-    String name, email, role, key, password;
+    String name, s_email, role, key, s_password;
     Firebase_Auth_SDP obj;
     ProgressDialog dialog;
     String companyName,des;
@@ -72,8 +72,8 @@ public class AddEmployActivity extends AppCompatActivity {
         binding.register.setOnClickListener(view -> {
             name = binding.name.getText().toString();
             role=binding.role.getText().toString();
-            email = binding.email.getText().toString();
-            password = binding.password.getText().toString();
+            s_email = binding.email.getText().toString();
+            s_password = binding.password.getText().toString();
 
 
             if (uri == null) {
@@ -83,15 +83,15 @@ public class AddEmployActivity extends AppCompatActivity {
             }else if (role.isEmpty()) {
                 binding.role.setError("Please Role");
             }
-            else if (email.isEmpty()) {
+            else if (s_email.isEmpty()) {
                 binding.email.setError("Please Email");
             }
-            else if (password.isEmpty()) {
+            else if (s_password.isEmpty()) {
                 binding.password.setError("Please Password");
             } else {
 
 
-                sendData(name,role, email, password,uri.getData(),key);
+                sendData(name,role, s_email, s_password,uri.getData(),key);
             }
 
         });
@@ -113,7 +113,7 @@ public class AddEmployActivity extends AppCompatActivity {
             });
 
 
-    private void sendData(String name, String role, String email, String password, Uri uri,String key) {
+    private void sendData(String s_name, String role, String email, String password, Uri uri,String key) {
         dialog.show();
         dialog.setTitle("Upload Detail");
         StorageReference sRef = obj.getStorageReference().getReference("Register Employ People").child(String.valueOf(System.currentTimeMillis()));
@@ -128,18 +128,17 @@ public class AddEmployActivity extends AppCompatActivity {
                                                            public void onSuccess(Uri downloadUri) {
 
 
-                                                               RegisterEmployModel model=new RegisterEmployModel(name,role,email,password,downloadUri.toString(),companyName,finalKey,obj.getAuth().getCurrentUser().getEmail(),des);
-
+                                                               RegisterEmployModel model=new RegisterEmployModel(s_name,email,password,downloadUri.toString(),companyName,finalKey,obj.getAuth().getCurrentUser().getEmail(),role);
                                                                obj.getAuth().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                                    @Override
                                                                    public void onComplete(@NonNull Task<AuthResult> task) {
                                                                        if (task.isSuccessful()) {
-                                                                           obj.getFirebaseDatabase().getReference().child(COMPANIES).addValueEventListener(new ValueEventListener() {
+                                                                           obj.getFirebaseDatabase().getReference().child(COMPANIES).addListenerForSingleValueEvent(new ValueEventListener() {
                                                                                @Override
                                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                   obj.getFirebaseDatabase().getReference().child(COMPANIES).child(EMPLOY).child(finalKey).setValue(model);
-//                                                                                   startActivity(new Intent(AddEmployActivity.this, HRDashboard.class));
-//                                                                                   finish();
+                                                                                   obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).child(finalKey).setValue(model);
+                                                                                   startActivity(new Intent(AddEmployActivity.this, HRDashboard.class));
+                                                                                   finish();
 //                                                                                    finish();
 
 //                                                                                   FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();

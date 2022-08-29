@@ -15,7 +15,9 @@ import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +45,7 @@ public class CreateCompany extends AppCompatActivity {
     Firebase_Auth_SDP obj;
     ProgressDialog dialog;
     String email, id;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +60,11 @@ public class CreateCompany extends AppCompatActivity {
         Log.i("mehmood", "onCreate: " + email);
         Log.i("mehmood", "onCreate: " + id);
 
+
         RegisterCompany registerCompany = new RegisterCompany();
         binding.setItem(registerCompany);
         registerCompany.setCompanyEmail(email);
-
+        sharedPreferences=getSharedPreferences("db", Context.MODE_PRIVATE);
         dialog = new ProgressDialog(this);
         binding.selectedImage.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -127,7 +131,12 @@ public class CreateCompany extends AppCompatActivity {
                                                                    @Override
                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                        obj.getFirebaseDatabase().getReference().child(COMPANIES).child(ADMIN).child(id).setValue(model_class);
-                                                                       finishAffinity();
+//                                                                       finishAffinity();
+                                                                       SharedPreferences.Editor editor=sharedPreferences.edit();
+                                                                       editor.putString("k","Owner");
+                                                                       editor.apply();
+                                                                       editor.commit();
+
                                                                        Intent intent = new Intent(CreateCompany.this, ProjectManagerDashboard.class);
                                                                        startActivity(intent);
                                                                        finish();

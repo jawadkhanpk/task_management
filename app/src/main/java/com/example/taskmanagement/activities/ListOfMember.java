@@ -2,6 +2,7 @@ package com.example.taskmanagement.activities;
 
 import static com.example.taskmanagement.Constant.ADMIN;
 import static com.example.taskmanagement.Constant.COMPANIES;
+import static com.example.taskmanagement.Constant.MEMBER;
 import static com.example.taskmanagement.Constant.TEAMS;
 import static com.example.taskmanagement.Constant.USERS;
 
@@ -11,12 +12,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.taskmanagement.Firebase_Auth_SDP;
 import com.example.taskmanagement.R;
+import com.example.taskmanagement.activities.pmdashboard.PMDashboard;
 import com.example.taskmanagement.adapter.RegisterUserAdapter;
 import com.example.taskmanagement.adapter.RegisterUserAdapter2;
 import com.example.taskmanagement.databinding.ActivityListOfMemberBinding;
@@ -69,8 +73,6 @@ public class ListOfMember extends AppCompatActivity implements AddInterface {
 
                     if (companyName.equals(registerCompany.getCompanyName())) {
                         list.add(registerCompany);
-                        Log.i("mehmood", "Adapter: " + registerCompany.getImageUrl());
-                        Log.i("mehmood", "Adapter: " + registerCompany.getDesignation());
 
                         binding.recycleView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
@@ -98,6 +100,7 @@ public class ListOfMember extends AppCompatActivity implements AddInterface {
                      if (obj.getAuth().getCurrentUser().getEmail().equals(createTeam.getEmail()))
                      {
                          teamName=createTeam.getTeamName();
+                         Toast.makeText(ListOfMember.this, "mk", Toast.LENGTH_SHORT).show();
                      }
                 }
 
@@ -126,10 +129,12 @@ public class ListOfMember extends AppCompatActivity implements AddInterface {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                CreateHP model=new CreateHP("",name,img,"",email,"",cName);
-                obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(TEAMS).child(teamName).child("Member").child(name).setValue(model);
+                CreateHP model=new CreateHP("",name,img,"",email,"",cName,"");
+                obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(TEAMS).child(teamName).child(MEMBER).child(name).setValue(model);
 //                obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(TEAMS).child(teamName).child("Member").child(cName).setValue(cName);
 //                obj.getFirebaseDatabase().getReference().child(COMPANIES).child(companyName).child(TEAMS).child(teamName).child("Member").child(cName).setValue(img);
+                  startActivity(new Intent(ListOfMember.this, PMDashboard.class));
+                  finish();
             }
 
             @Override

@@ -14,22 +14,26 @@ import com.squareup.picasso.Picasso;
  */
 public class RegisterEmployModel {
 
-    public RegisterEmployModel(String name, String role, String email, String password, String profile,String companyName,String key,String employCreatedBy,String designation) {
+    private String imageUrl;
+    private String name;
+    private String email;
+    private String password;
+    private String employCreatedBy;
+    private String designation;
+    private String key;
+
+
+    public RegisterEmployModel(String name, String email, String password, String imageUrl,String companyName,String key,String employCreatedBy,String designation) {
         this.name = name;
-        this.role = role;
         this.email = email;
         this.password = password;
-        this.profile = profile;
+        this.imageUrl = imageUrl;
         this.companyName=companyName;
         this.key=key;
         this.employCreatedBy=employCreatedBy;
         this.designation=designation;
     }
 
-    String name;
-    String role;
-    String email;
-    String password;
 
     public String getDesignation() {
         return designation;
@@ -39,7 +43,7 @@ public class RegisterEmployModel {
         this.designation = designation;
     }
 
-    String designation;
+
 
     public String getEmployCreatedBy() {
         return employCreatedBy;
@@ -49,7 +53,6 @@ public class RegisterEmployModel {
         this.employCreatedBy = employCreatedBy;
     }
 
-    String employCreatedBy;
 
     public String getKey() {
         return key;
@@ -59,7 +62,7 @@ public class RegisterEmployModel {
         this.key = key;
     }
 
-    String key;
+
 
     public String getCompanyName() {
         return companyName;
@@ -82,13 +85,6 @@ public class RegisterEmployModel {
         this.name = name;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getEmail() {
         return email;
@@ -106,20 +102,31 @@ public class RegisterEmployModel {
         this.password = password;
     }
 
-    public String getProfile() {
-        return profile;
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    String profile;
+
+
+//    @BindingAdapter("android:imageUrl")
+//    public static void loadImage(ImageView imageView, Uri uri)
+//    {
+//        Picasso.get().load(uri).into(imageView);
+//
+//
+//    }
 
     @BindingAdapter("android:imgUrlHP")
-    public static void loadImageHP(ImageView imageView, Uri profile)
+    public static void loadImageHP(ImageView imageView, Uri companyLogo)
     {
-        Picasso.get().load(profile).into(imageView);
+//        ImageView imageView= (ImageView) view;
+//        Picasso.get().load(companyLogo).into(imageView);
+        Picasso.get().load(companyLogo).into(imageView);
 
 
     }

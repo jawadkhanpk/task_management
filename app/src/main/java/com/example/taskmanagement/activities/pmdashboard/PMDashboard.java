@@ -12,8 +12,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +61,11 @@ public class PMDashboard extends AppCompatActivity implements TeamInterface, Car
         obj = Firebase_Auth_SDP.getInstance();
         email = obj.getAuth().getCurrentUser().getEmail();
 
+        SharedPreferences sharedPreferences=getSharedPreferences("db", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("k","Project Manager");
+        editor.apply();
+        editor.commit();
 
 //       email2=getIntent().getStringExtra("email");
 
@@ -99,7 +106,7 @@ public class PMDashboard extends AppCompatActivity implements TeamInterface, Car
                                     CreateTeam model = dataSnapshot.getValue(CreateTeam.class);
                                     list.add(model);
                                     binding.recycleView.setAdapter(adapter);
-                                    Log.i("mehmood", "list of team: " + dataSnapshot);
+
                                 }
 
 

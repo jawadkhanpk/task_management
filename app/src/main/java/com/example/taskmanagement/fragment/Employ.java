@@ -58,16 +58,21 @@ public class Employ extends Fragment implements UserDelete2 {
         super.onCreate(savedInstanceState);
 
         obj = Firebase_Auth_SDP.getInstance();
-        obj.getFirebaseDatabase().getReference().child(COMPANIES).child(EMPLOY).addValueEventListener(new ValueEventListener() {
+        obj.getFirebaseDatabase().getReference().child(COMPANIES).child(USERS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     RegisterEmployModel model = dataSnapshot.getValue(RegisterEmployModel.class);
-                    if (obj.getAuth().getCurrentUser().getEmail().equals(model.getEmployCreatedBy())) {
-                          list.add(model);
+                    if (model.getEmployCreatedBy().equals(""))
+                    {
+//                        if (obj.getAuth().getCurrentUser().getEmail().equals(model.getEmployCreatedBy())) {
 
-
+                       // }
+                    }
+                    else if (model.getCompanyName().equals(storeCompanyName))
+                    {
+                        list.add(model);
                         binding.recycleView.setAdapter(adapter);
                     }
                     Log.i("khan", "onDataChange: "+model.getEmployCreatedBy());
